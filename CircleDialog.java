@@ -3,9 +3,9 @@
 // Project 1
 // September 2006
 // Written by Dr. Watts
-// http://www.cs.sonoma.edu/~tiawatts 
+// http://www.cs.sonoma.edu/~tiawatts
 /*
-Dialog box for selecting a shape and its color and providing 
+Dialog box for selecting a shape and its color and providing
 a name for the shape
 */
 
@@ -14,7 +14,7 @@ import java.awt.event.*;
 import javax.swing.*;
 
 
-public class CircleDialog extends JDialog implements ActionListener 
+public class CircleDialog extends JDialog implements ActionListener
 {
  	private JPanel myPanel = null;
  	private JButton OKButton = null, cancelButton = null;
@@ -26,7 +26,7 @@ public class CircleDialog extends JDialog implements ActionListener
 			blackRButton = null;
 	private ButtonGroup shapeGroup= null, colorGroup = null;
 	private ColorPanel colorPanel = null;
-	private JPanel buttonPanel = null;    
+	private JPanel buttonPanel = null;
 	private Color currentColor = Color.red;
 	private int oldRadius = 0;
 	private int radius = 0;
@@ -50,7 +50,7 @@ public class CircleDialog extends JDialog implements ActionListener
 		setSize (300,350);
  		setVisible(true);
 	}
-	
+
 	private void addTextAndButtons ()
 	{
 	 	myPanel.add(new JLabel("Enter the radius:"));
@@ -60,15 +60,16 @@ public class CircleDialog extends JDialog implements ActionListener
 		buttonPanel = new JPanel();
 		OKButton = new JButton("    OK    ");
 		OKButton.addActionListener(this);
-		buttonPanel.add(OKButton); 
+		buttonPanel.add(OKButton);
 		cancelButton = new JButton("Cancel");
 		cancelButton.addActionListener(this);
-		buttonPanel.add(cancelButton); 
-		myPanel.add(buttonPanel); 
+		buttonPanel.add(cancelButton);
+		myPanel.add(buttonPanel);
 	}
 
-	public void actionPerformed(ActionEvent e) 
+	public void actionPerformed(ActionEvent e)
 	{
+    //System.out.println(e.getSource());
  		if (redRButton == e.getSource())
 			currentColor = Color.red;
 		else if (orangeRButton == e.getSource())
@@ -87,7 +88,7 @@ public class CircleDialog extends JDialog implements ActionListener
 			currentColor = new Color (170, 170, 170);
 		else if (blackRButton == e.getSource())
 			currentColor = Color.black;
-		else if(OKButton == e.getSource()) 
+		else if(OKButton == e.getSource())
 		{
 			answer = true;
 			setVisible(false);
@@ -102,13 +103,12 @@ public class CircleDialog extends JDialog implements ActionListener
 				radius = oldRadius;
 			}
         	}
- 		else if(cancelButton == e.getSource()) 
+ 		else if(cancelButton == e.getSource())
 		{
  			answer = false;
 			setVisible(false);
 	//		getContentPane().remove(myPanel);
 		}
        }
- 
-} 
 
+}

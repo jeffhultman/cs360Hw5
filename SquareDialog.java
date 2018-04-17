@@ -25,10 +25,11 @@ public class SquareDialog extends JDialog implements ActionListener
  	public Color getColor() { return currentColor; }
  	public int getSide() { return side; }
  	public boolean getAnswer() { return answer; }
-  public SquareDialog(JFrame frame, boolean modal, int x, int y, int R)
+
+  public SquareDialog(JFrame frame, boolean modal, int x, int y, int S)
 	{
  		super(frame, modal);
-		oldSide = R;
+		oldSide = S;
  		myPanel = new JPanel();
 		getContentPane().add(myPanel);
 		myPanel.setLayout (new FlowLayout());
