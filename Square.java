@@ -28,6 +28,11 @@ public final class Square extends Quadrilateral
 		centerX = C.centerX;
 		centerY = C.centerY;
 		color = C.color;
+		for (int i = 0; i < 3; i++)
+		{
+			vertexX[i] = C.vertexX[i];
+			vertexY[i] = C.vertexY[i];
+		}
 	}
 
 	public void setSide (int S)
@@ -85,7 +90,7 @@ public final class Square extends Quadrilateral
 
 	public void modifyShape (JFrame frame, int x, int y)
 	{
-		squareDialog squaredialog = new squareDialog (frame, true, x, y, side, angle);
+		SquareDialog squaredialog = new SquareDialog (frame, true, x, y, side, angle); 
 		if (squaredialog.getAnswer() == true)
 		{
 			side = squaredialog.getSide ();
@@ -94,6 +99,36 @@ public final class Square extends Quadrilateral
 			setVertices ();
 		}
 	}
+	public void setVertices()
+  {
+    //   doubleVertexX[0] = (centerX + (side / 2));
+    //   doubleVertexX[1] = (centerX - (side / 2));
+    //   doubleVertexX[2] = (centerX - (side / 2));
+    //   doubleVertexX[3] = (centerX + (side / 2));
+    //   doubleVertexY[0] = (centerY - (side / 2));
+    //   doubleVertexY[1] = (centerY - (side / 2));
+    //   doubleVertexY[2] = (centerY + (side / 2));
+    //   doubleVertexY[3] = (centerY + (side / 2));
+    // vertexX[0] = (int) (doubleVertexX[0]);
+    // vertexX[1] = (int) (doubleVertexX[1]);
+    // vertexX[2] = (int) (doubleVertexX[2]);
+    // vertexX[3] = (int) (doubleVertexX[3]);
+    // vertexY[0] = (int) (doubleVertexY[0]);
+    // vertexY[1] = (int) (doubleVertexY[1]);
+    // vertexY[2] = (int) (doubleVertexY[2]);
+    // vertexY[3] = (int) (doubleVertexY[3]);
+    vertexX[0] = (centerX + (side / 2));
+	vertexX[1] = (centerX - (side / 2));
+	vertexX[2] = (centerX - (side / 2));
+	vertexX[3] = (centerX + (side / 2));
+	vertexY[0] = (centerY - (side / 2));
+	vertexY[1] = (centerY - (side / 2));
+	vertexY[2] = (centerY + (side / 2));
+	vertexY[3] = (centerY + (side / 2));
+	polygon = new Polygon (vertexX, vertexY, 4);
+	AffineTransform at = new AffineTransform();
+	at.rotate(angle, centerX, centerY);
+  }
 
 	public void paintComponent (Graphics2D g2)
 	{
