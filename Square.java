@@ -1,10 +1,12 @@
 // File: Square.java
 // Author: Dr. Watts
 // Contents: This file contains the description and implementation
-// of a class called Square. 
+// of a class called Square.
 
 import static java.lang.Math.*;
 import java.awt.*;
+import javax.swing.*;
+import java.awt.geom.AffineTransform;
 
 public final class Square extends Quadrilateral
 {
@@ -81,10 +83,23 @@ public final class Square extends Quadrilateral
 		return string;
 	}
 
+	public void modifyShape (JFrame frame, int x, int y)
+	{
+		squareDialog squaredialog = new squareDialog (frame, true, x, y, side, angle);
+		if (squaredialog.getAnswer() == true)
+		{
+			side = squaredialog.getSide ();
+			angle = squaredialog.getAngle ();
+			color = squaredialog.getColor ();
+			setVertices ();
+		}
+	}
+
 	public void paintComponent (Graphics2D g2)
 	{
 		g2.setPaint (color);
 		g2.fillRect (centerX-side/2, centerY-side/2, side, side);
+
 		g2.drawRect (centerX-side/2, centerY-side/2, side, side);
 		g2.setPaint (Color.BLACK);
 		g2.fillOval (centerX-1, centerY-1, 2, 2); // Draw the center point
