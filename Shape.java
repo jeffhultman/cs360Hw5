@@ -13,6 +13,8 @@ public class Shape implements Comparable<Shape>
 	protected int centerX;
 	protected int centerY;
 	protected int side;
+	protected int numVertices;
+	protected boolean isSelected = false;
 	protected Color color;
 
 	public Shape ()

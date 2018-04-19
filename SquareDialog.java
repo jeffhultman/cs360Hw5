@@ -5,11 +5,12 @@ import java.awt.*;
 import java.awt.event.*;
 import javax.swing.*;
 
+
 public class SquareDialog extends JDialog implements ActionListener
 {
-  private JPanel myPanel = null;
+ 	private JPanel myPanel = null;
  	private JButton OKButton = null, cancelButton = null;
-	private JTextField sideText;
+	private JTextField radiusText;
 	private JRadioButton redRButton = null, orangeRButton = null,
 			yellowRButton = null, greenRButton = null,
 			blueRButton = null, purpleRButton = null,
@@ -19,17 +20,17 @@ public class SquareDialog extends JDialog implements ActionListener
 	private ColorPanel colorPanel = null;
 	private JPanel buttonPanel = null;
 	private Color currentColor = Color.red;
-	private int oldSide = 0;
-	private int side = 0;
+	private int oldRadius = 0;
+	private int radius = 0;
  	private boolean answer = false;
  	public Color getColor() { return currentColor; }
- 	public int getSide() { return side; }
+ 	public int getRadius() { return radius; }
  	public boolean getAnswer() { return answer; }
 
-  public SquareDialog(JFrame frame, boolean modal, int x, int y, int S)
+	public SquareDialog(JFrame frame, boolean modal, int x, int y, int R)
 	{
  		super(frame, modal);
-		oldSide = S;
+		oldRadius = R;
  		myPanel = new JPanel();
 		getContentPane().add(myPanel);
 		myPanel.setLayout (new FlowLayout());
@@ -44,10 +45,10 @@ public class SquareDialog extends JDialog implements ActionListener
 
 	private void addTextAndButtons ()
 	{
-	 	myPanel.add(new JLabel("Enter the side:"));
-		sideText = new JTextField(((Integer) oldSide).toString(), 20);
-		sideText.addActionListener(this);
-		myPanel.add (sideText);
+	 	myPanel.add(new JLabel("Enter the radius:"));
+		radiusText = new JTextField(((Integer) oldRadius).toString(), 20);
+		radiusText.addActionListener(this);
+		myPanel.add (radiusText);
 		buttonPanel = new JPanel();
 		OKButton = new JButton("    OK    ");
 		OKButton.addActionListener(this);
@@ -60,6 +61,7 @@ public class SquareDialog extends JDialog implements ActionListener
 
 	public void actionPerformed(ActionEvent e)
 	{
+    //System.out.println(e.getSource());
  		if (redRButton == e.getSource())
 			currentColor = Color.red;
 		else if (orangeRButton == e.getSource())
@@ -86,11 +88,11 @@ public class SquareDialog extends JDialog implements ActionListener
 			currentColor = colorPanel.getColor ();
 			try
 			{
-				side = Integer.parseInt (sideText.getText());
+				radius = Integer.parseInt (radiusText.getText());
 			}
 			catch (NumberFormatException ex)
 			{
-				side = oldSide;
+				radius = oldRadius;
 			}
         	}
  		else if(cancelButton == e.getSource())
@@ -100,4 +102,5 @@ public class SquareDialog extends JDialog implements ActionListener
 	//		getContentPane().remove(myPanel);
 		}
        }
+
 }
