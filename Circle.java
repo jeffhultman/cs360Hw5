@@ -12,6 +12,7 @@ public final class Circle extends Shape
 	public Circle ()
 	{
 	}
+	
 
 	public Circle (int S, int X, int Y, Color C)
 	{
