@@ -5,6 +5,8 @@
 
 import static java.lang.Math.*;
 import java.awt.*;
+import javax.swing.*;
+import java.awt.geom.AffineTransform;
 
 public final class Scalene extends Triangle
 {
@@ -45,27 +47,43 @@ public final class Scalene extends Triangle
 
 	public void setVertices ()
 	{
-		double cosAngle = (side * side + side2 * side2 - side3 * side3) / (2.0 * side * side2);
-		double angle = acos (cosAngle);
-		int height = (int) (sin(angle) * side2);
-		int offX = (int) (cos(angle) * side2);
-		//System.out.println (cosAngle + "; " + angle + "; " + height + "; " + offX);
-		vertexX[0] = vertexY[0] = 0;
-		vertexX[1] = offX; vertexY[1] = -height;
-		vertexX[2] = side; vertexY[2] = 0;
-		int inX = (vertexX[0]* side3 + vertexX[1] * side + vertexX[2] * side2) / (int) perimeter();
-		int inY = (vertexY[0]* side3 + vertexY[1] * side + vertexY[2] * side2) / (int) perimeter();
-		for (int i = 0; i < 3; i++)
-		{
-			vertexX[i] += (centerX - inX);
-			vertexY[i] += (centerY - inY);
-		}
+		// double cosAngle = (side * side + side2 * side2 - side3 * side3) / (2.0 * side * side2);
+		// double angle = acos (cosAngle);
+		// int height = (int) (sin(angle) * side2);
+		// int offX = (int) (cos(angle) * side2);
+		// //System.out.println (cosAngle + "; " + angle + "; " + height + "; " + offX);
+		// vertexX[0] = vertexY[0] = 0;
+		// vertexX[1] = offX; vertexY[1] = -height;
+		// vertexX[2] = side; vertexY[2] = 0;
+		// System.out.println(perimeter());
+		// int inX = (vertexX[0]* side3 + vertexX[1] * side + vertexX[2] * side2) / (int) perimeter();
+		// int inY = (vertexY[0]* side3 + vertexY[1] * side + vertexY[2] * side2) / (int) perimeter();
+		// for (int i = 0; i < 3; i++)
+		// {
+		// 	vertexX[i] += (centerX - inX);
+		// 	vertexY[i] += (centerY - inY);
+		// }
+		
+		double alpha = Math.acos(((side * side) + (side2 * side2) - (side3 * side3)) / (2 * side * side2));
+	
+		double X = side * Math.cos(alpha);
+		double height = side * Math.sin(alpha);
+	
+		vertexX[0] = (int) (centerX - (side2 / 2 - X));
+		vertexX[1] = (int) (centerX - (side2 / 2));
+		vertexX[2] = (int) (centerX + (side2 / 2));
+		vertexY[0] = (int) (centerY - height / 2);
+		vertexY[1] = (int) (centerY + height / 2);
+		vertexY[2] = (int) (centerY + height / 2);
+		
+	
 		polygon = new Polygon (vertexX, vertexY, 3);
 	}
 
 	public void setSide1 (int S1)
 	{
 		side = S1;
+		System.out.println("setSide1");
 		setVertices ();
 	}
 
@@ -110,6 +128,20 @@ public final class Scalene extends Triangle
 	public String getName ()
 	{
 		return "Scalene";
+	}
+
+	public void modifyShape (JFrame frame, int x, int y)
+	{
+		ScaleneDialog scalenedialog = new ScaleneDialog (frame, true, x, y, side, side2, side3, angle); 
+		if (scalenedialog.getAnswer() == true)
+		{
+			side = scalenedialog.getSide ();
+			side2 = scalenedialog.getSide2();
+			side3 = scalenedialog.getSide3();
+			angle = scalenedialog.getAngle ();
+			color = scalenedialog.getColor ();
+			setVertices ();
+		}
 	}
 
 	public void fromString (String str)

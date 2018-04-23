@@ -99,7 +99,7 @@ public final class Square extends Quadrilateral
   }
   public void modifyShape (JFrame frame, int x, int y)
 	{
-		EquilateralDialog squaredialog = new SquareDialog (frame, true, x, y, side, angle); 
+		SquareDialog squaredialog = new SquareDialog (frame, true, x, y, side, angle); 
 		if (squaredialog.getAnswer() == true)
 		{
 			side = squaredialog.getSide ();

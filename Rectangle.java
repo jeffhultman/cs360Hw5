@@ -5,6 +5,8 @@
 
 import static java.lang.Math.*;
 import java.awt.*;
+import javax.swing.*;
+import java.awt.geom.AffineTransform;
 
 public final class Rectangle extends Quadrilateral
 {
@@ -105,6 +107,19 @@ public final class Rectangle extends Quadrilateral
 		g2.drawRect (centerX-side/2, centerY-side2/2, side, side2);
 		g2.setPaint (Color.BLACK);
 		g2.fillOval (centerX-1, centerY-1, 2, 2); // Draw the center point
+	}
+
+	public void modifyShape (JFrame frame, int x, int y)
+	{
+		RectangleDialog rectangledialog = new RectangleDialog (frame, true, x, y, side, side2, angle); 
+		if (rectangledialog.getAnswer() == true)
+		{
+			side = rectangledialog.getSide ();
+			side2 = rectangledialog.getSide2();
+			angle = rectangledialog.getAngle ();
+			color = rectangledialog.getColor ();
+			setVertices ();
+		}
 	}
 
 	public boolean isIn (int X, int Y)

@@ -1,16 +1,16 @@
-// cs360 Proj
-// Square.Dialog.java
+
 
 import java.awt.*;
 import java.awt.event.*;
 import javax.swing.*;
 
 
-public class SquareDialog extends JDialog implements ActionListener
+public class SquareDialog extends JDialog implements ActionListener 
 {
  	private JPanel myPanel = null;
  	private JButton OKButton = null, cancelButton = null;
-	private JTextField radiusText;
+	private JTextField sideText;
+	private JTextField angleText;
 	private JRadioButton redRButton = null, orangeRButton = null,
 			yellowRButton = null, greenRButton = null,
 			blueRButton = null, purpleRButton = null,
@@ -18,50 +18,58 @@ public class SquareDialog extends JDialog implements ActionListener
 			blackRButton = null;
 	private ButtonGroup shapeGroup= null, colorGroup = null;
 	private ColorPanel colorPanel = null;
-	private JPanel buttonPanel = null;
+	private JPanel buttonPanel = null;    
 	private Color currentColor = Color.red;
-	private int oldRadius = 0;
-	private int radius = 0;
+	private int oldSide = 0;
+	private int side = 0;
+	private double oldAngle = 0;
+	private double angle = 0;
  	private boolean answer = false;
  	public Color getColor() { return currentColor; }
- 	public int getRadius() { return radius; }
+ 	public int getSide() { return side; }
+ 	public double getAngle() { return angle; }
  	public boolean getAnswer() { return answer; }
 
-	public SquareDialog(JFrame frame, boolean modal, int x, int y, int R)
+	public SquareDialog(JFrame frame, boolean modal, int x, int y, int R, double A)
 	{
  		super(frame, modal);
-		oldRadius = R;
+		oldSide = R;
+		oldAngle = A;
  		myPanel = new JPanel();
 		getContentPane().add(myPanel);
+		myPanel.setLayout (new GridLayout(7,1));
 		myPanel.setLayout (new FlowLayout());
 		colorPanel = new ColorPanel (Color.red);
 		myPanel.add (colorPanel);
 		addTextAndButtons ();
 		setTitle ("Modify Square Dialog");
 		setLocation (x, y);
-		setSize (300,350);
+		setSize (300,450);
  		setVisible(true);
 	}
-
+	
 	private void addTextAndButtons ()
 	{
-	 	myPanel.add(new JLabel("Enter the radius:"));
-		radiusText = new JTextField(((Integer) oldRadius).toString(), 20);
-		radiusText.addActionListener(this);
-		myPanel.add (radiusText);
+	 	myPanel.add(new JLabel("Enter the side:"));
+		sideText = new JTextField(((Integer) oldSide).toString(), 20);
+		sideText.addActionListener(this);
+		myPanel.add (sideText);
+	 	myPanel.add(new JLabel("Enter the angle:"));
+		angleText = new JTextField(((Double) oldAngle).toString(), 20);
+		angleText.addActionListener(this);
+		myPanel.add (angleText);
 		buttonPanel = new JPanel();
-		OKButton = new JButton("    OK    ");
+		OKButton = new JButton("OK");
 		OKButton.addActionListener(this);
-		buttonPanel.add(OKButton);
+		buttonPanel.add(OKButton); 
 		cancelButton = new JButton("Cancel");
 		cancelButton.addActionListener(this);
-		buttonPanel.add(cancelButton);
-		myPanel.add(buttonPanel);
+		buttonPanel.add(cancelButton); 
+		myPanel.add(buttonPanel); 
 	}
 
-	public void actionPerformed(ActionEvent e)
+	public void actionPerformed(ActionEvent e) 
 	{
-    //System.out.println(e.getSource());
  		if (redRButton == e.getSource())
 			currentColor = Color.red;
 		else if (orangeRButton == e.getSource())
@@ -80,7 +88,7 @@ public class SquareDialog extends JDialog implements ActionListener
 			currentColor = new Color (170, 170, 170);
 		else if (blackRButton == e.getSource())
 			currentColor = Color.black;
-		else if(OKButton == e.getSource())
+		else if(OKButton == e.getSource()) 
 		{
 			answer = true;
 			setVisible(false);
@@ -88,19 +96,28 @@ public class SquareDialog extends JDialog implements ActionListener
 			currentColor = colorPanel.getColor ();
 			try
 			{
-				radius = Integer.parseInt (radiusText.getText());
+				side = Integer.parseInt (sideText.getText());
 			}
 			catch (NumberFormatException ex)
 			{
-				radius = oldRadius;
+				side = oldSide;
+			}
+			try
+			{
+				angle = Double.parseDouble (angleText.getText());
+			}
+			catch (NumberFormatException ex)
+			{
+				angle = oldAngle;
 			}
         	}
- 		else if(cancelButton == e.getSource())
+ 		else if(cancelButton == e.getSource()) 
 		{
  			answer = false;
 			setVisible(false);
 	//		getContentPane().remove(myPanel);
 		}
        }
+ 
+} 
 
-}

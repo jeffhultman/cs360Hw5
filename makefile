@@ -1,7 +1,7 @@
 Hmwk5.class : Hmwk5.java Background.class
 	javac Hmwk5.java
 
-Background.class : Background.java ShapeIO.class CircleDialog.class EquilateralDialog.class SquareDialog.class
+Background.class : Background.java ShapeIO.class CircleDialog.class EquilateralDialog.class SquareDialog.class RectangleDialog.class RightDialog.class ScaleneDialog.class
 	javac Background.java
 
 Circle.class : Circle.java
@@ -33,6 +33,15 @@ Square.class : Square.java Quadrilateral.class
 
 Triangle.class : Triangle.java Shape.class
 	javac Triangle.java
+
+ScaleneDialog.class: ScaleneDialog.java ColorPanel.class
+	javac ScaleneDialog.java
+
+RightDialog.class: RightDialog.java ColorPanel.class
+	javac RightDialog.java
+
+RectangleDialog.class: RectangleDialog.java ColorPanel.class
+	javac RectangleDialog.java
 
 SquareDialog.class: SquareDialog.java ColorPanel.class
 	javac SquareDialog.java

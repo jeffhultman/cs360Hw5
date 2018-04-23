@@ -5,6 +5,8 @@
 
 import static java.lang.Math.*;
 import java.awt.*;
+import javax.swing.*;
+import java.awt.geom.AffineTransform;
 
 public final class Right extends Triangle
 {
@@ -95,6 +97,19 @@ public final class Right extends Triangle
 	public String getName ()
 	{
 		return "Right";
+	}
+
+	public void modifyShape (JFrame frame, int x, int y)
+	{
+		RightDialog rightdialog = new RightDialog (frame, true, x, y, side, side2, angle); 
+		if (rightdialog.getAnswer() == true)
+		{
+			side = rightdialog.getSide ();
+			side2= rightdialog.getSide2();
+			angle = rightdialog.getAngle ();
+			color = rightdialog.getColor ();
+			setVertices ();
+		}
 	}
 
 	public void fromString (String str)
