@@ -20,6 +20,17 @@ public class Quadrilateral extends Shape
 	{
 	}
 
+	public void paintComponent (Graphics2D g2)
+    {
+
+	 g2.setPaint(color);
+	 g2.drawPolygon(vertexX, vertexY, 4);
+	 g2.fillPolygon(vertexX, vertexY, 4);    
+	 g2.setPaint(Color.BLACK);
+	 g2.fillOval(centerX - 1, centerY - 1, 2, 2);
+
+    }
+
 	public void setCenterX(int X) 
 	{
 		centerX = X;
@@ -88,48 +99,45 @@ public class Quadrilateral extends Shape
 		//setVertices();
 	}
 
-	public void rotate(double degs) 
-	{
-		double transX, transY = 0;
+	public void rotate(double degs)
+  {
+    double transX, transY = 0;
 
-		for (int i = 0; i < 4; i++) 
-		{
-			transX = doubleVertexX[i] - centerX;
-			transY = doubleVertexY[i] - centerY;
-			// System.out.println(transX);
-			doubleVertexX[i] = (transX * Math.cos(Math.toRadians(degs)) - transY * Math.sin(Math.toRadians(degs)));
-			doubleVertexY[i] = (transX * Math.sin(Math.toRadians(degs)) + transY * Math.cos(Math.toRadians(degs)));
-			// System.out.println(doubleVertexX[i] + " " + i + " ");
+    for (int i = 0; i < 4; i++)
+    {
+      transX = doubleVertexX[i] - centerX;
+      transY = doubleVertexY[i] - centerY;
+      // System.out.println(transX);
+      doubleVertexX[i] = (transX * Math.cos(Math.toRadians(degs)) - transY * Math.sin(Math.toRadians(degs)));
+      doubleVertexY[i] = (transX * Math.sin(Math.toRadians(degs)) + transY * Math.cos(Math.toRadians(degs)));
+      // System.out.println(doubleVertexX[i] + " " + i + " ");
 
-			doubleVertexX[i] += centerX;
-			doubleVertexY[i] += centerY;
-			// System.out.println(doubleVertexX[i] + " " + i + " ");
-		}
+      doubleVertexX[i] += centerX;
+      doubleVertexY[i] += centerY;
+      // System.out.println(doubleVertexX[i] + " " + i + " ");
+    }
 
-		for (int i = 0; i < 4; i++) 
-		{
-			vertexX[i] = (int) doubleVertexX[i];
-			vertexY[i] = (int) doubleVertexY[i];
-			// System.out.println(vertexX[i] + " " + i + " ");
+    for (int i = 0; i < 4; i++)
+    {
+      vertexX[i] = (int) doubleVertexX[i];
+      vertexY[i] = (int) doubleVertexY[i];
+      // System.out.println(vertexX[i] + " " + i + " ");
 
-		}
-		polygon = new Polygon(vertexX, vertexY, 4);
-		// System.out.println("Rotate!");
-	}
+    }
+    polygon = new Polygon(vertexX, vertexY, 4);
+    // System.out.println("Rotate!");
+  }
 
 	public void move(int deltaX, int deltaY) 
 	{
 		centerX += deltaX;
 		centerY += deltaY;
 		for (int i = 0; i < 4; i++) {
-			doubleVertexX[i] += deltaX;
-			doubleVertexY[i] += deltaY;
+			vertexX[i] += deltaX;
+			vertexY[i] += deltaY;
 			// System.out.println(vertexX[i]);
 		}
-		for (int i = 0; i < 4; i++) {
-			vertexX[i] = (int) (doubleVertexX[i] + .5);
-			vertexY[i] = (int) (doubleVertexY[i] + .5);
-		}
+		
 		polygon = new Polygon(vertexX, vertexY, 4);
 		//System.out.println ("Moving shape " + deltaX + "," + deltaY + " units");
 	}

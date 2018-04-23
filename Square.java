@@ -5,24 +5,7 @@ import java.awt.geom.AffineTransform;
 
 public final class Square extends Quadrilateral
 {
-  private int rotateValue = 0;
-  public void paintComponent (Graphics2D g2)
-  {
-    g2.setPaint(color);
-    //setVertices();
-    polygon = new Polygon (vertexX, vertexY, 4);
-    g2.drawPolygon(vertexX, vertexY, 4);
-    g2.fillPolygon(vertexX, vertexY, 4);
-    if (this.isSelected)
-    {
-      g2.setPaint(Color.WHITE);
-      g2.drawPolygon(vertexX, vertexY, 4) ;
-      g2.setPaint(color);
-    }
-    g2.setPaint(Color.BLACK);
-    g2.fillOval(centerX - 1, centerY - 1, 2, 2);
-
-  }
+  
 
   public Square(int S, int X, int Y, Color C)
   {
@@ -52,13 +35,7 @@ public final class Square extends Quadrilateral
     vertexY[2] = (int) (doubleVertexY[2]);
     vertexY[3] = (int) (doubleVertexY[3]);
     //tempSide = Math.sqrt(Math.pow(vertexX[1] - vertexX[0], 2) + Math.pow(vertexY[1] - vertexY[0], 2));
-    for(int i = 0; i < Math.abs(rotateValue); i++)
-    {
-
-        this.rotate(5);
-    }
-    
-    
+    rotate(angle);
     polygon = new Polygon (vertexX, vertexY, 4);
 
   }
@@ -115,27 +92,10 @@ public final class Square extends Quadrilateral
     {
       centerX = Integer.parseInt(parts[0]);
       centerY = Integer.parseInt(parts[1]);
-      if (Integer.parseInt(parts[2]) > 0)
-      {
-        side = Integer.parseInt(parts[2]);
-        color = new Color(Integer.parseInt(parts[3]));
-        setVertices();
-      }
-      else
-      {
-        color = new Color(Integer.parseInt(parts[2]));
-        numVertices = Integer.parseInt(parts[3]);
-        for (int i = 0; i < 4; i++)
-        {
-          doubleVertexX[i] = Double.parseDouble(parts[4 + (2 * i)]);
-          doubleVertexY[i] = Double.parseDouble(parts[5 + (2 * i)]);
-        }
-        for (int i = 0; i < 4; i++)
-        {
-           vertexX[i] = (int) (doubleVertexX[i] + .5);
-           vertexY[i] = (int) (doubleVertexY[i] + .5);
-        }
-      }
+      side = Integer.parseInt(parts[2]);
+      color = new Color(Integer.parseInt(parts[3]));
+      setVertices();
+     
     }
     catch (NumberFormatException e)
     {
@@ -147,12 +107,9 @@ public final class Square extends Quadrilateral
     String string = new String ();
     string += centerX + " ";
     string += centerY + " ";
+    string += side + " ";
     string += color.getRGB() + " ";
-    for (int i = 0; i < 4; i++)
-    {
-      string += doubleVertexX[i] + " ";
-      string += doubleVertexY[i] + " ";
-    }
+    
     return string;
   }
 

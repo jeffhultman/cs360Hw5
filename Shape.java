@@ -66,8 +66,8 @@ public class Shape implements Comparable<Shape>
 			}
 			else
 			{
-				color = new Color(Integer.parseInt(parts[3]));
-				side = Integer.parseInt(parts[2]);
+				color = new Color(Integer.parseInt(parts[2]));
+				side = Integer.parseInt(parts[3]);
 			}
 		}
 		catch (NumberFormatException e)

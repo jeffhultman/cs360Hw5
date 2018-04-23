@@ -8,10 +8,11 @@ import java.awt.event.*;
 import javax.swing.*;
 import java.io.*;
 import java.util.*;
+import javax.swing.filechooser.*;
 
 public class Background extends JPanel implements ActionListener, MouseMotionListener, MouseListener
 {
-	private JButton saveButton;
+	private JButton saveButton, loadButton;
 	private JFrame outside;
 	private boolean inFrame = true;
 	private int currentX, currentY;
@@ -28,6 +29,9 @@ public class Background extends JPanel implements ActionListener, MouseMotionLis
 		saveButton = new JButton ("Save Shapes");
 		add (saveButton);
 		saveButton.addActionListener (this);
+		loadButton = new JButton ("Load Shapes");
+		add (loadButton);
+		loadButton.addActionListener (this);
 		setBackground (Color.BLACK);
 		addMouseMotionListener(this);
 		addMouseListener(this);
@@ -66,10 +70,44 @@ public class Background extends JPanel implements ActionListener, MouseMotionLis
 	{
 		if (e.getSource() == saveButton)
 		{
-			ShapeIO shapeIO = new ShapeIO ();
-			shapeIO.writeShapes ("SavedShapes.io", S);
+			JFileChooser chooser = new JFileChooser();
+			FileNameExtensionFilter filter = new FileNameExtensionFilter("Shape files", "sio");
+			chooser.setFileFilter(filter);
+			if (chooser.showSaveDialog(this) == JFileChooser.APPROVE_OPTION)
+			{
+				// Gets the path to the where the file will be saved at
+				String filename = chooser.getSelectedFile().getAbsolutePath();
+				int period = filename.lastIndexOf ('.');
+				String extension = new String();
+				// Returns the file extension
+				if (period > 0)
+					extension = filename.substring (period);
+				// Sets the file extension to .sio if not already set
+				if (!extension.equalsIgnoreCase (".sio"))
+					filename += ".sio";
+				ShapeIO shapeIO = new ShapeIO ();
+				shapeIO.writeShapes (filename, S);
+			}
+			// ShapeIO shapeIO = new ShapeIO ();
+			// shapeIO.writeShapes ("SavedShapes.io", S);
 		}
-	}
+		if (e.getSource() == loadButton)
+     	{
+         JFileChooser chooser = new JFileChooser();
+         FileNameExtensionFilter filter = new FileNameExtensionFilter("Shape files", "sio");
+         chooser.setFileFilter(filter);
+		 if (chooser.showOpenDialog(outside) == JFileChooser.APPROVE_OPTION)
+		 {
+			String filename = chooser.getSelectedFile().getAbsolutePath();
+			ShapeIO shapeIO = new ShapeIO ();
+			shapeIO.readShapes (filename, S);
+			}
+			repaint();
+		 }
+		 
+		}
+	
+		
 	public void mousePressed (MouseEvent e)
 	{
 		//System.out.println ("Mouse pressed at " + e.getX() + ", " + e.getY());

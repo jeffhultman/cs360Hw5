@@ -30,7 +30,7 @@ public class RectangleDialog extends JDialog implements ActionListener
  	public double getAngle() { return angle; }
  	public boolean getAnswer() { return answer; }
 
-	public RectangleDialog(JFrame frame, boolean modal, int x, int y, int Z, int R, double A)
+	public RectangleDialog(JFrame frame, boolean modal, int x, int y, int R, int Z, double A)
 	{
  		super(frame, modal);
         oldSide = R;
@@ -45,7 +45,7 @@ public class RectangleDialog extends JDialog implements ActionListener
 		addTextAndButtons ();
 		setTitle ("Modify Rectangle Dialog");
 		setLocation (x, y);
-		setSize (300,450);
+		setSize (300,500);
  		setVisible(true);
 	}
 	
@@ -102,11 +102,17 @@ public class RectangleDialog extends JDialog implements ActionListener
 			try
 			{
 				side = Integer.parseInt (sideText.getText());
+			}
+			catch (NumberFormatException ex)
+			{
+				side = oldSide;	
+			}
+			try
+			{
 				side2 = Integer.parseInt (sideText2.getText());
 			}
 			catch (NumberFormatException ex)
 			{
-				side = oldSide;
 				side2 = oldSide2;
 			}
 			try

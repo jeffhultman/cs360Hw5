@@ -53,10 +53,11 @@ public final class Equilateral extends Triangle
 			vertexX[i] += (centerX - inX);
 			vertexY[i] += (centerY - inY);
 		}
+		rotate(angle);
 		polygon = new Polygon (vertexX, vertexY, 3);
-		AffineTransform at = new AffineTransform ();
-		at.rotate (angle, centerX, centerY);
-	//	polygon = at.createTransformedShape (polygon);
+		// AffineTransform at = new AffineTransform ();
+		// at.rotate (angle, centerX, centerY);
+		// polygon = at.createTransformedShape (polygon);
 	}
 
 	public void setSide (int S)
@@ -106,9 +107,30 @@ public final class Equilateral extends Triangle
 			side = equilateraldialog.getSide ();
 			angle = equilateraldialog.getAngle ();
 			color = equilateraldialog.getColor ();
+			System.out.println(angle);
+			
 			setVertices ();
+			
 		}
 	}
+
+	public void rotate(double degs)
+    {
+        double transX, transY = 0;
+        for (int i = 0; i < 3; i++)
+        {
+            transX = vertexX[i] - centerX;
+            transY = vertexY[i] - centerY;
+            vertexX[i] = (int) (transX * Math.cos(Math.toRadians(degs)) - transY * Math.sin(Math.toRadians(degs)));
+            vertexY[i] = (int) (transX * Math.sin(Math.toRadians(degs)) + transY * Math.cos(Math.toRadians(degs)));
+            vertexX[i] += centerX;
+            vertexY[i] += centerY;
+        }
+
+       
+        polygon = new Polygon(vertexX, vertexY, 3);
+
+    }
 
 	public double area ()
 	{

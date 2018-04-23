@@ -47,7 +47,7 @@ public class ScaleneDialog extends JDialog implements ActionListener
 		addTextAndButtons ();
 		setTitle ("Modify Scalene Dialog");
 		setLocation (x, y);
-		setSize (300,450);
+		setSize (300,500);
  		setVisible(true);
 	}
 	

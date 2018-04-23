@@ -70,17 +70,46 @@ public final class Rectangle extends Quadrilateral
 		return "Rectangle";
 	}
 
+	public void setVertices()
+    {
+   
+      doubleVertexX[0] = (centerX + (side / 2));
+      doubleVertexX[1] = (centerX - (side / 2));
+      doubleVertexX[2] = (centerX - (side / 2));
+      doubleVertexX[3] = (centerX + (side / 2));
+      doubleVertexY[0] = (centerY - (side2 / 2));
+      doubleVertexY[1] = (centerY - (side2 / 2));
+      doubleVertexY[2] = (centerY + (side2 / 2));
+      doubleVertexY[3] = (centerY + (side2 / 2));
+  
+      vertexX[0] = (int) (doubleVertexX[0]);
+      vertexX[1] = (int) (doubleVertexX[1]);
+      vertexX[2] = (int) (doubleVertexX[2]);
+      vertexX[3] = (int) (doubleVertexX[3]);
+      vertexY[0] = (int) (doubleVertexY[0]);
+      vertexY[1] = (int) (doubleVertexY[1]);
+      vertexY[2] = (int) (doubleVertexY[2]);
+	  vertexY[3] = (int) (doubleVertexY[3]);
+
+	  rotate(angle);
+      polygon = new Polygon (vertexX, vertexY, 4);
+		//System.out.println(vertexX[0] + " " + vertexY[0]);
+
+    }
+
 	public void fromString (String str)
 	{
 		String [] parts = str.split (" ");
 		try
 		{
+			System.out.println("from Rect");
 			centerX = Integer.parseInt(parts[0]);
 			centerY = Integer.parseInt(parts[1]);
 			side = Integer.parseInt(parts[2]);
 			side2 = Integer.parseInt(parts[3]);
 			color = new Color(Integer.parseInt(parts[4]));
 			angle = Double.parseDouble (parts[5]);
+			setVertices();
 		}
 		catch (NumberFormatException e)
 		{
@@ -100,14 +129,36 @@ public final class Rectangle extends Quadrilateral
 		return string;
 	}
 	
-	public void paintComponent (Graphics2D g2)
-	{
-		g2.setPaint (color);
-		g2.fillRect (centerX-side/2, centerY-side2/2, side, side2);
-		g2.drawRect (centerX-side/2, centerY-side2/2, side, side2);
-		g2.setPaint (Color.BLACK);
-		g2.fillOval (centerX-1, centerY-1, 2, 2); // Draw the center point
-	}
+	
+
+  public void rotate(double degs)
+  {
+    double transX, transY = 0;
+
+    for (int i = 0; i < 4; i++)
+    {
+      transX = doubleVertexX[i] - centerX;
+      transY = doubleVertexY[i] - centerY;
+      // System.out.println(transX);
+      doubleVertexX[i] = (transX * Math.cos(Math.toRadians(degs)) - transY * Math.sin(Math.toRadians(degs)));
+      doubleVertexY[i] = (transX * Math.sin(Math.toRadians(degs)) + transY * Math.cos(Math.toRadians(degs)));
+      // System.out.println(doubleVertexX[i] + " " + i + " ");
+
+      doubleVertexX[i] += centerX;
+      doubleVertexY[i] += centerY;
+      // System.out.println(doubleVertexX[i] + " " + i + " ");
+    }
+
+    for (int i = 0; i < 4; i++)
+    {
+      vertexX[i] = (int) doubleVertexX[i];
+      vertexY[i] = (int) doubleVertexY[i];
+      // System.out.println(vertexX[i] + " " + i + " ");
+
+    }
+    polygon = new Polygon(vertexX, vertexY, 4);
+    // System.out.println("Rotate!");
+  }
 
 	public void modifyShape (JFrame frame, int x, int y)
 	{

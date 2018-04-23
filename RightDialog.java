@@ -45,7 +45,7 @@ public class RightDialog extends JDialog implements ActionListener
 		addTextAndButtons ();
 		setTitle ("Modify Right Dialog");
 		setLocation (x, y);
-		setSize (300,450);
+		setSize (300,500);
  		setVisible(true);
 	}
 	

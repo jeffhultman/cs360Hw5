@@ -59,6 +59,7 @@ public final class Right extends Triangle
 			vertexX[i] += (centerX - inX);
 			vertexY[i] += (centerY - inY);
 		}
+		rotate(angle);
 		polygon = new Polygon (vertexX, vertexY, 3);
 	}
 
